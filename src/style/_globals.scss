@@ -1,0 +1,17 @@
+$slate: #555354;
+$light-border: 1px solid #ddd;
+$dark-border: 1px solid #9b9b9b;
+$background: #f0f0f0;
+
+$shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+
+@mixin tile {
+    box-shadow: $shadow;
+    background-color: #fff;
+    
+    & .tweet-body {
+        &:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+    }
+}

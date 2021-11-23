@@ -1,0 +1,5 @@
+@import '_globals.scss';
+
+.tweet-list {
+    @include tile;
+}

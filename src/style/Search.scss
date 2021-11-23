@@ -1,0 +1,21 @@
+@import '_globals.scss';
+
+.search-bar {
+    display: block;
+    padding: .3rem 1rem;
+    background-color: #fff;
+    border-radius: .25rem;
+    border: $dark-border;
+    margin: 0 0 1rem;
+
+    & input {
+        background: none;
+        border: none;
+        width: 100%;
+        height: 2rem;
+        line-height: 2rem;
+        font-size: 1rem;
+        color: $slate;
+        outline: none;
+    }
+}

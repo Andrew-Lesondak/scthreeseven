@@ -1,0 +1,23 @@
+@import '_globals';
+
+// desktop
+.container {
+    width: 70%;
+
+    & .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        
+        & .col {
+            padding: .5rem;
+            
+            &.col-1 {
+                width: 65%;
+            }
+            &.col-2 {
+                width: 35%;
+            }
+        }
+    }
+}
