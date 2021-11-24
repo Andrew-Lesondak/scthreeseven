@@ -2,6 +2,7 @@
   "name": "scthreeseven",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "babel-loader": "^8.1.0",
     "cra-template": "1.1.2",
