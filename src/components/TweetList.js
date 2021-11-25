@@ -1,23 +1,42 @@
 import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux'
-import allActions from '../actions'
+import {useSelector, useDispatch} from 'react-redux';
+import allActions from '../actions';
 import '../style/TweetList.scss';
 
 const TweetList = () => {
 
   const posts = useSelector(state => state.posts);
-  const dispatch = useDispatch()
-
+    //   const [results, setResults] = useState([]);
+  const dispatch = useDispatch();
+  
   useEffect(async () => {
     dispatch(await allActions.fetchPosts())
-  }, [posts])
+  }, [])
 
-  return (
-    <div className="tweet-list">
-        {posts}
-    </div>
-  );
-};
+    return (
+        <div>
+            {
+                posts.map(item => { 
+                    return (
+                        <div key={item.tweetId} className="row">
+                            <div className="col">
+                                <div style={{backgroundImage: `url(${item.imageUrl})`, height: "50px", width: "50px", borderRadius: "50%"}}></div>
+                            </div>
+                            <div className="col">
+                                <div>@{item.screenName}</div>
+                                <div>
+                                    {item.fullText}
+                                    {item.urls.map((url, i) => <a key={i} href={url}>{url}</a>)}
+                                </div>
+                                <div>{}</div>
+                            </div>
+                        </div>
+                    )
+                })
+            }
+        </div>
+    )
+}
 
 export default TweetList;
 

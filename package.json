@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3000",
   "dependencies": {
     "babel-loader": "^8.1.0",
+    "cors-anywhere": "^0.4.4",
     "cra-template": "1.1.2",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",

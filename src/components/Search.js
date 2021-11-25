@@ -7,7 +7,7 @@ function Search() {
         <input 
             placeholder="Search by keyword"
             className="search-input"
-            type="tex"/>
+            type="text"/>
       </span>
     </div>
   );

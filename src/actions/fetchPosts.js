@@ -1,59 +1,42 @@
 import axios from 'axios';
 import twitter from '../apis/twitter';
-import { POPULAR_POSTS } from '../constants';
+import { POPULAR_POSTS, REQUEST_TWEETS_FAILED } from '../constants';
 import { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import { parseURL, parseUsername, parseHashtag, getHashtags, removeHashtags, getUrls, stripText } from '../utils';
 
-export const fetchPosts = async dispatch => {
+export const fetchPosts = async () => {
 
-  let response = { data: '' };
-//encodeURIComponent()
-  twitter.get('/search/tweets.json?count=5&result_type=popular&q=%23nature')
-  .then(response => {
-    response = response;
-    console.log(response);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+    let response = '';
 
-  return { 
-      type: POPULAR_POSTS, 
-      payload: response.data 
+    try {
+        response = await twitter.get('/search/tweets.json?');
+    } catch (error) {
+        console.log(error)
+    }
+console.log(response.data.statuses)
+    let tweets = [];
+
+    for(const tweet of response.data.statuses) {
+        
+        const tweetObj = {
+            tweetId: tweet.id,
+            imageUrl: tweet.user.profile_image_url,
+            screenName: tweet.user.screen_name,
+            fullText: stripText(tweet.full_text).trim(),
+            urls: getUrls(tweet.full_text),
+            hashTags: getHashtags(tweet.full_text)
+        };
+
+        tweets = [...tweets, tweetObj];
+    }
+
+    return { type: POPULAR_POSTS, payload: tweets }
+}
+
+// Wrap the async function and dispatch an error if an error occurred
+function wrap(fn) {
+  return function(dispatch) {
+    fn(dispatch).catch(error => dispatch({ type: 'ERROR', error }));
   };
-
-//   const currentUser = useSelector(state => state.currentUser)
-
-//   const dispatch = useDispatch()
-
-//   const user = {name: "Rei"}
-
-//   useEffect(() => {
-//     dispatch(allActions.userActions.setUser(user))
-//   }, [])
-
-
-
-
-
-
-    // const [videos, setVideos] = useState([]);
-
-    // useEffect(() => {
-    //     search(defaultSearchTerm);
-    // }, [defaultSearchTerm]);
-
-    // const search = async (term) => {
-    //     const response = await youtube.get("/search", {
-    //         params: {
-    //             q: term,
-    //         },
-    //     });
-
-    //     setVideos(response.data.items);
-
-    // };
-
-    // return [videos, search];
-
 }
