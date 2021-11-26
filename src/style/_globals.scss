@@ -14,4 +14,23 @@ $shadow: 0 .125rem .25rem rgba(0,0,0,.075);
             background-color: #f0f0f0;
         }
     }
+
+    & .hashtags {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+
+        & .hashtag {
+            background-color: #0095ff52;
+            border-radius: 2rem;
+            color: #2b3aad;
+            height: 2rem;
+            padding: .2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: .6rem;
+        }
+    }
 }

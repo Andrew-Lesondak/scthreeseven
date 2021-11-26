@@ -2,4 +2,16 @@
 
 .tweet-list {
     @include tile;
+
+    & .row {
+        &:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+    }
+
+    & .hashtag {
+        &:first-child {
+            margin-left: 0rem;
+        }
+    }
 }

@@ -24,7 +24,7 @@ const parseUsername = (text) => {
 const parseHashtag = (text) => {
   return text.replace(/[#]+[A-Za-z0-9-_]+/g, function( t ) {
     var tag = t.replace("#","%23");
-    return t.link( 'http://search.twitter.com/search?q=' + tag );
+    return t.link( 'https://search.twitter.com/search?q=' + tag );
   });
 };
 
@@ -46,7 +46,10 @@ const removeHashtags = (text) => {
 
 // Extract hashtags from string
 const getHashtags = (text) => {
-  return [...text.matchAll(/[#]+[A-Za-z0-9-_]+/g)];
+  let link = 'https://search.twitter.com/search?q=';
+  let tags = [...text.matchAll(/[#]+[A-Za-z0-9-_]+/g)];
+  let hashlinks = tags.map((ht, i) => <span className="hashtag" key={i}>{' '}<a target="_blank" href={link+ht}>{ht[0]}</a></span>)
+  return hashlinks;
 };
 
 export { parseURL, parseUsername, parseHashtag, getHashtags, removeHashtags, getUrls, stripText }; 

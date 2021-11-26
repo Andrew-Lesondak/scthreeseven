@@ -14,7 +14,7 @@ export const fetchPosts = async () => {
     } catch (error) {
         console.log(error)
     }
-console.log(response.data.statuses)
+    console.log(response.data.statuses)
     let tweets = [];
 
     for(const tweet of response.data.statuses) {
