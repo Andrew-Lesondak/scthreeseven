@@ -1,2 +1,4 @@
 export const POPULAR_POSTS = 'POPULAR_POSTS';
 export const REQUEST_TWEETS_FAILED = 'REQUEST_TWEETS_FAILED';
+export const TERM = 'TERM';
+export const DEBOUNCED_TERM = 'DEBOUNCED_TERM';

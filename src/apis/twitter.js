@@ -7,7 +7,7 @@ export default axios.create({
         'Authorization': `Bearer ${BEARERKEY}`,
     },
     params: {
-        q: "coding",
+        // q: "coding",
         tweet_mode: "extended",
         count: 5,
         result_type: "popular",

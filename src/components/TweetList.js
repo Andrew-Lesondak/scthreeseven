@@ -8,11 +8,12 @@ const TweetList = () => {
 
   const posts = useSelector(state => state.posts);
     //   const [results, setResults] = useState([]);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   
-  useEffect(async () => {
-    dispatch(await allActions.fetchPosts())
-  }, [])
+//   useEffect(async () => {
+//     dispatch(await allActions.fetchPosts())
+//   }, []);
+console.log('tweets ', posts)
 
     return (
         <div className="tweet-list">
@@ -27,7 +28,7 @@ const TweetList = () => {
                                 <div>@{item.screenName}</div>
                                 <div>
                                     {item.fullText}
-                                    {item.urls.map((url, i) => <span key={i}>{' '}<a target="_blank" href={url}>{url}</a></span>)}
+                                    {item.urls.map((url, i) => <span key={i}>{' '}<a target="_blank" rel="noreferrer" href={url}>{url}</a></span>)}
                                 </div>
                                 <div className="hashtags">
                                     {
@@ -44,41 +45,3 @@ const TweetList = () => {
 }
 
 export default TweetList;
-
-
-
-
-// const App = () => {
-//   const counter = useSelector(state => state.counter)
-//   const currentUser = useSelector(state => state.currentUser)
-
-//   const dispatch = useDispatch()
-
-//   const user = {name: "Rei"}
-
-//   useEffect(() => {
-//     dispatch(allActions.userActions.setUser(user))
-//   }, [])
-
-//   return (
-//     <div className="App">
-//       {
-//         currentUser.loggedIn ? 
-//         <>
-//           <h1>Hello, {currentUser.user.name}</h1>
-//           <button onClick={() => dispatch(allActions.userActions.logOut())}>Logout</button>
-//         </> 
-//         : 
-//         <>
-//           <h1>Login</h1>
-//           <button onClick={() => dispatch(allActions.userActions.setUser(user))}>Login as Rei</button>
-//         </>
-//         }
-//       <h1>Counter: {counter}</h1>
-//       <button onClick={() => dispatch(allActions.counterActions.increment())}>Increase Counter</button>
-//       <button onClick={() => dispatch(allActions.counterActions.decrement())}>Decrease Counter</button>
-//     </div>
-//   );
-// }
-
-// export default App;
