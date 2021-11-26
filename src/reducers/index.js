@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import popularPostsReducer from './popularPostsReducer';
+import postsReducer from './postsReducer';
 import termReducer from './termReducer';
 import debouncedTermReducer from './debouncedTermReducer';
+import filteredHashtagsReducer from './filteredHashtagsReducer';
 
 export default combineReducers({
-    posts: popularPostsReducer,
+    posts: postsReducer,
     term: termReducer,
-    debouncedTerm: debouncedTermReducer
+    debouncedTerm: debouncedTermReducer,
+    filteredHashTags: filteredHashtagsReducer
 });

@@ -1,17 +1,26 @@
 @import '_globals.scss';
 
-.tweet-list {
-    @include tile;
-
-    & .row {
-        &:nth-child(even) {
-            background-color: #f0f0f0;
+.tweet-content {
+    & .tweet-list {
+        @include tile;
+    
+        & .row {
+            &:nth-child(even) {
+                background-color: #f0f0f0;
+            }
         }
+    
+        // & .hashtag {
+        //     &:first-child {
+        //         margin-left: 0rem;
+        //     }
+        // }
     }
-
-    & .hashtag {
-        &:first-child {
-            margin-left: 0rem;
-        }
+    & .load-more {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $link;
+        cursor: pointer;
     }
 }

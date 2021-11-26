@@ -1,3 +1,7 @@
+
+import {useSelector, useDispatch} from 'react-redux';
+import allActions from '../actions';
+import _ from 'lodash';
 /*
 * Credit - https://www.benmarshall.me/parse-twitter-hashtags/
 */
@@ -44,12 +48,40 @@ const removeHashtags = (text) => {
   return text.replace(/[#]+[A-Za-z0-9-_]+/g, '').trim();
 };
 
-// Extract hashtags from string
-const getHashtags = (text) => {
+// Extract hashtags from string as html
+const getHashtagHtml = (text, tweets = []) => {
   let link = 'https://search.twitter.com/search?q=';
   let tags = [...text.matchAll(/[#]+[A-Za-z0-9-_]+/g)];
-  let hashlinks = tags.map((ht, i) => <span className="hashtag" key={i}>{' '}<a target="_blank" href={link+ht}>{ht[0]}</a></span>)
+  let hashlinks = tags.map((ht, i) => { 
+    return <div 
+        className="hashtag" 
+        key={ht[0]}
+        onClick={e => allActions.filterHashtags(useSelector, useDispatch, e.target.value)}
+      >
+      {' '}{ht[0]}
+      </div> 
+    })
   return hashlinks;
 };
 
-export { parseURL, parseUsername, parseHashtag, getHashtags, removeHashtags, getUrls, stripText }; 
+const getHashtags = (text) => {
+  let tags = [...text.matchAll(/[#]+[A-Za-z0-9-_]+/g)];
+  return tags;
+};
+
+// Extract hashtags from string
+const getUniqueHashtags = (text) => {
+  let hashTags = [];
+  let link = 'https://search.twitter.com/search?q=';
+  let tags = [...text.matchAll(/[#]+[A-Za-z0-9-_]+/g)];
+
+  // optional lodash 
+  hashTags = _.chain(tags)
+    .uniq()
+    .value()
+
+  let hashlinks = hashTags.map((ht, i) => <span className="hashtag" key={i}>{' '}<a target="_blank" href={link+ht}>{ht[0]}</a></span>)
+  return hashlinks;
+};
+
+export { parseURL, parseUsername, parseHashtag, getHashtagHtml, getUniqueHashtags, getHashtags, removeHashtags, getUrls, stripText }; 

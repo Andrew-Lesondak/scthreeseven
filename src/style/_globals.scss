@@ -2,6 +2,7 @@ $slate: #555354;
 $light-border: 1px solid #ddd;
 $dark-border: 1px solid #9b9b9b;
 $background: #f0f0f0;
+$link: #2b3aad;
 
 $shadow: 0 .125rem .25rem rgba(0,0,0,.075);
 
@@ -24,7 +25,7 @@ $shadow: 0 .125rem .25rem rgba(0,0,0,.075);
         & .hashtag {
             background-color: #0095ff52;
             border-radius: 2rem;
-            color: #2b3aad;
+            color: $link;
             height: 2rem;
             padding: .2rem 1rem;
             display: flex;
