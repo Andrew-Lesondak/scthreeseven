@@ -11,13 +11,12 @@ const TweetList = () => {
   const currentFilteredTags = useSelector(state => state.filteredHashTags);
   const dispatch = useDispatch();
 
-  const getHashtagHtml = (text) => {
-      console.log(text)
+  const getHashtagHtml = (text, isFilteredTag) => {
     let link = 'https://search.twitter.com/search?q=';
     let tags = [...text.matchAll(/[#]+[A-Za-z0-9-_]+/g)];
     let hashlinks = tags.map((ht, i) => { 
       return <div 
-          className="hashtag" 
+          className={`hashtag ${isFilteredTag ? 'filtered-tag' : ''}`}
           key={ht[0]}
           onClick={async e => await dispatch(allActions.filterHashtags(e.target.innerText, currentFilteredTags))}
         >
@@ -32,7 +31,21 @@ const TweetList = () => {
             <div className="tweet-list">
                 {
                     posts.map(item => { 
-                        if(item.hashTags.find(tag => currentFilteredTags.filter(fTag => fTag === tag).length ? true : false )) {
+                        console.log('current filtered: ', currentFilteredTags);
+                        console.log('items hashtags: ', item.hashTags);
+                        const hashTagSet = new Set(currentFilteredTags);
+                        let isFilteredIn = false;
+
+                        for(const tag of item.hashTags) {
+                            if(hashTagSet.has(tag[0])) {
+                                isFilteredIn = true;
+                                break;
+                            }
+                            console.log(hashTagSet.has(tag[0]));
+                        }
+
+                        console.log('is filtered?', isFilteredIn);
+                        if(hashTagSet.size === 0 || isFilteredIn) {
                             return (
                                 <div className="row" key={`${item.screenName}${item.tweetId}`}>
                                     <div className="col">
@@ -46,12 +59,13 @@ const TweetList = () => {
                                         </div>
                                         <div className="hashtags">
                                             {
-                                                item.hashTags.map(tag => getHashtagHtml(tag[0]))
+                                                item.hashTags.map(tag => getHashtagHtml(tag[0], hashTagSet.has(tag[0])))
                                             }
                                         </div>
                                     </div>
                                 </div>
                             )
+
                         } else {
                             <div></div>
                         }
