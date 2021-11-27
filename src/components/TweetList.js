@@ -9,6 +9,7 @@ const TweetList = () => {
 
   const posts = useSelector(state => state.posts);
   const currentFilteredTags = useSelector(state => state.filteredHashTags);
+  const debouncedTerm = useSelector(state => state.term);
   const dispatch = useDispatch();
 
   const getHashtagHtml = (text, isFilteredTag) => {
@@ -26,50 +27,55 @@ const TweetList = () => {
     return hashlinks;
   };
 
+  const showTweetList = (debouncedTerm) => {
+      console.log('tweet list: ', debouncedTerm)
+      if(debouncedTerm) {
+        return posts.map(item => { 
+            const hashTagSet = new Set(currentFilteredTags);
+            let isFilteredIn = false;
+
+            for(const tag of item.hashTags) {
+                if(hashTagSet.has(tag[0])) {
+                    isFilteredIn = true;
+                    break;
+                }
+            }
+
+            if(hashTagSet.size === 0 || isFilteredIn) {
+                return (
+                    <div className="row" key={`${item.screenName}${item.tweetId}`}>
+                        <div className="col">
+                            <div style={{backgroundImage: `url(${item.imageUrl})`, height: "50px", width: "50px", borderRadius: "50%"}}></div>
+                        </div>
+                        <div className="col">
+                            <div>@{item.screenName}</div>
+                            <div>
+                                {item.fullText}
+                                {item.urls.map((url, i) => <span key={i}>{' '}<a target="_blank" rel="noreferrer" href={url}>{url}</a></span>)}
+                            </div>
+                            <div className="hashtags">
+                                {
+                                    item.hashTags.map(tag => getHashtagHtml(tag[0], hashTagSet.has(tag[0])))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                )
+
+            } else {
+                return <div></div>
+            }
+        })
+      } else {
+          return <div></div>
+      }
+  };
+
     return (
         <div className="tweet-content">
             <div className="tweet-list">
                 {
-                    posts.map(item => { 
-                        console.log('current filtered: ', currentFilteredTags);
-                        console.log('items hashtags: ', item.hashTags);
-                        const hashTagSet = new Set(currentFilteredTags);
-                        let isFilteredIn = false;
-
-                        for(const tag of item.hashTags) {
-                            if(hashTagSet.has(tag[0])) {
-                                isFilteredIn = true;
-                                break;
-                            }
-                            console.log(hashTagSet.has(tag[0]));
-                        }
-
-                        console.log('is filtered?', isFilteredIn);
-                        if(hashTagSet.size === 0 || isFilteredIn) {
-                            return (
-                                <div className="row" key={`${item.screenName}${item.tweetId}`}>
-                                    <div className="col">
-                                        <div style={{backgroundImage: `url(${item.imageUrl})`, height: "50px", width: "50px", borderRadius: "50%"}}></div>
-                                    </div>
-                                    <div className="col">
-                                        <div>@{item.screenName}</div>
-                                        <div>
-                                            {item.fullText}
-                                            {item.urls.map((url, i) => <span key={i}>{' '}<a target="_blank" rel="noreferrer" href={url}>{url}</a></span>)}
-                                        </div>
-                                        <div className="hashtags">
-                                            {
-                                                item.hashTags.map(tag => getHashtagHtml(tag[0], hashTagSet.has(tag[0])))
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-
-                        } else {
-                            <div></div>
-                        }
-                    })
+                    showTweetList(debouncedTerm)
                 }
             </div>
             <LoadMore />

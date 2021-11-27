@@ -6,7 +6,6 @@ export const filterHashtags = (tag, currentFilteredTags) => {
 
     const tagsSet = new Set(currentFilteredTags);
     let filteredTags = [];
-    console.log('current filtered: ', currentFilteredTags)
 
     if(tagsSet.has(tag)) {
         tagsSet.delete(tag);
@@ -17,9 +16,5 @@ export const filterHashtags = (tag, currentFilteredTags) => {
         filteredTags = [...currentFilteredTags, tag];
     }
     
-
-    console.log('filtered: ', filteredTags)
-    
-    return { type: FILTERED_HASH_TAGS, payload: filteredTags };
-    
+    return { type: FILTERED_HASH_TAGS, payload: filteredTags };   
 }

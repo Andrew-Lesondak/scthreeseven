@@ -32,6 +32,11 @@ $shadow: 0 .125rem .25rem rgba(0,0,0,.075);
             justify-content: center;
             align-items: center;
             margin: .6rem;
+
+            &.filtered-tag {
+                background-color: green;
+                color: red;
+            }
         }
     }
 }

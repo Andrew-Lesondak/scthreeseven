@@ -1,5 +1,6 @@
 import '../style/HashtagContainer.scss';
 import {useSelector, useDispatch} from 'react-redux';
+import React, {useEffect} from 'react';
 import allActions from '../actions';
 import _ from 'lodash';
 
@@ -7,6 +8,7 @@ function HashtagContainer() {
 
   const posts = useSelector(state => state.posts);
   const currentFilteredTags = useSelector(state => state.filteredHashTags);
+  const debouncedTerm = useSelector(state => state.term);
   const dispatch = useDispatch();
 
   const getHashtagHtml = (text, isFilteredTag) => {
@@ -32,16 +34,16 @@ function HashtagContainer() {
       .flatten()
       .map(item => item[0])
       .uniq()
-      .map(tag => getHashtagHtml(tag, hashTagSet.has(tag[0]))[0])
+      .map(tag => getHashtagHtml(tag, hashTagSet.has(tag)))
       .value();
   }
-
+  
   return (
     <div className="hashtags-container">
         <div className='title'>Filter by hashtag</div>
         <div className="hashtags">
           {
-            createHashtagList(posts) 
+            debouncedTerm !== '' ? createHashtagList(posts) : <div></div>
           }
         </div>
     </div>

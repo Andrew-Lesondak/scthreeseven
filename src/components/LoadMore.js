@@ -9,20 +9,34 @@ function LoadMore() {
   const debouncedTerm = useSelector(state => state.term);
   const posts = useSelector(state => state.posts);
   
+  const showLoadMore = (tweets, debouncedTerm) => {
+    if(debouncedTerm) {
+      <div 
+        className="load-more"
+        onClick={async e => {
+          if(debouncedTerm !== '') {
+              dispatch(
+              await allActions.fetchPosts(debouncedTerm, 
+              tweets, 
+              `&max_id=${tweets.map(tweet => tweet.tweetId).reduce((a,b) => Math.min(a, b))}`))
+            }
+          }
+        }
+        >
+          Load more
+      </div>
+    } else {
+      return <div></div>
+    }
+  }
+
   const getContent = (tweets) => {
     if(tweets.length) {
       return (
         <div>
-          <div 
-            className="load-more"
-            onClick={async e => 
-                  dispatch(
-                  await allActions.fetchPosts(debouncedTerm, 
-                  tweets, 
-                  `&max_id=${tweets.map(tweet => tweet.tweetId).reduce((a,b) => Math.min(a, b))}`))}
-              >
-              Load more
-          </div>
+        {
+          showLoadMore(tweets, debouncedTerm)
+        }
         </div>
       )
     } else {
