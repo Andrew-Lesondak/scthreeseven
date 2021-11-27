@@ -11,7 +11,7 @@ function LoadMore() {
   
   const showLoadMore = (tweets, debouncedTerm) => {
     if(debouncedTerm) {
-      <div 
+      return <div 
         className="load-more"
         onClick={async e => {
           if(debouncedTerm !== '') {
