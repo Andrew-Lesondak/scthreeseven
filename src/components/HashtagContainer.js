@@ -43,7 +43,7 @@ function HashtagContainer() {
         <div className='title'>Filter by hashtag</div>
         <div className="hashtags">
           {
-            debouncedTerm !== '' ? createHashtagList(posts) : <div></div>
+            debouncedTerm !== '' && createHashtagList(posts)
           }
         </div>
     </div>

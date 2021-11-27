@@ -28,7 +28,6 @@ const TweetList = () => {
   };
 
   const showTweetList = (debouncedTerm) => {
-      console.log('tweet list: ', debouncedTerm)
       if(debouncedTerm) {
         return posts.map(item => { 
             const hashTagSet = new Set(currentFilteredTags);
@@ -61,13 +60,8 @@ const TweetList = () => {
                         </div>
                     </div>
                 )
-
-            } else {
-                return <div></div>
             }
         })
-      } else {
-          return <div></div>
       }
   };
 
@@ -77,8 +71,8 @@ const TweetList = () => {
                 {
                     showTweetList(debouncedTerm)
                 }
+                <LoadMore />
             </div>
-            <LoadMore />
         </div>
     )
 }

@@ -4,7 +4,7 @@ $dark-border: 1px solid #9b9b9b;
 $background: #f0f0f0;
 $link: #2b3aad;
 
-$shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+$shadow: 0 .125rem .25rem rgba(0,0,0,.15);
 
 @mixin tile {
     box-shadow: $shadow;
@@ -32,6 +32,7 @@ $shadow: 0 .125rem .25rem rgba(0,0,0,.075);
             justify-content: center;
             align-items: center;
             margin: .6rem;
+            cursor: pointer;
 
             &.filtered-tag {
                 background-color: green;

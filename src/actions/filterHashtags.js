@@ -5,12 +5,9 @@ import { parseURL, parseUsername, parseHashtag, getHashtags, removeHashtags, get
 export const filterHashtags = (tag, currentFilteredTags) => {
 
     let filteredTags = [];
-    console.log('tag ', tag)
-    console.log('filtered tags: ', currentFilteredTags)
 
     if(tag !== '') {
 
-        console.log(' not empty')
         const tagsSet = new Set(currentFilteredTags);
 
         if(tagsSet.has(tag)) {
@@ -25,7 +22,7 @@ export const filterHashtags = (tag, currentFilteredTags) => {
         return { type: FILTERED_HASH_TAGS, payload: filteredTags };   
 
     } else {
-        console.log('is empty')
+        
         return { type: CLEAR_FILTERED, payload: filteredTags };   
     }
 }

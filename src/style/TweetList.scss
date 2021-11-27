@@ -9,18 +9,21 @@
                 background-color: #f0f0f0;
             }
         }
-    
-        // & .hashtag {
-        //     &:first-child {
-        //         margin-left: 0rem;
-        //     }
-        // }
     }
     & .load-more {
         display: flex;
         justify-content: center;
         align-items: center;
-        color: $link;
-        cursor: pointer;
+        padding: 1rem 0rem;
+        box-shadow: $shadow;
+
+        & .load-more-text {
+            color: $link;
+            cursor: pointer;
+        }
+
+        &:nth-child(odd) {
+            background-color: #f0f0f0;
+        }
     }
 }
