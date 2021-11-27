@@ -7,6 +7,7 @@ function Search() {
 
     const term = useSelector(state => state.term);
     const debouncedTerm = useSelector(state => state.term);
+    const currentFilteredTags = useSelector(state => state.filteredHashTags);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,7 +37,10 @@ function Search() {
             className="search-input"
             type="text"
             value={term}
-            onChange={e => dispatch(allActions.setTerm(e.target.value))}
+            onChange={async e => { 
+              dispatch(allActions.setTerm(e.target.value)); 
+              e.target.value === '' && await dispatch(allActions.filterHashtags(e.target.value, currentFilteredTags)); 
+            }}
             />
       </span>
     </div>
