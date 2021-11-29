@@ -7,19 +7,11 @@ import HashtagContainer from './HashtagContainer';
 function Container() {
   return (
     <div className="container">
-      <div className="row">
-        <div className="col">
-            <Title />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col col-1">
-          <Search />
-          <TweetList />
-        </div>
-        <div className="col col-2">
-          <HashtagContainer />
-        </div>
+      <div className="main-content">
+        <Title />
+        <Search />
+        <TweetList />
+        <HashtagContainer />
       </div>
     </div>
   );

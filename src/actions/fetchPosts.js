@@ -1,22 +1,18 @@
-import axios from 'axios';
 import twitter from '../apis/twitter';
 import { POSTS } from '../constants';
-import { parseURL, parseUsername, parseHashtag, getHashtagHtml, getUniqueHashtags, removeHashtags, getHashtags, getUrls, stripText } from '../utils';
+import { getHashtags, getUrls, stripText } from '../utils';
 
-export const fetchPosts = async (term, currentPosts = [], loadMore = '') => {
+export const fetchPosts = async (term, currentPosts = [], loadMoreQuery = '') => {
 
-    let tweets = [];
+    let tweets = [...currentPosts];
+    let loadMoreText;
+    let cleanedTerm = term.replace(/[^\w\s]/gi, '').trim();
     
-    if(term) {
-
+    if(cleanedTerm) {
         let response = '';
-        
-        if(currentPosts) {
-            tweets = [...tweets, ...currentPosts];
-        }
 
         try {
-            response = await twitter.get(`/search/tweets.json?q=${term}${loadMore}`);
+            response = await twitter.get(`/search/tweets.json?q=${cleanedTerm}${loadMoreQuery}`);
         } catch (error) {
             console.log(error);
         }
@@ -24,8 +20,12 @@ export const fetchPosts = async (term, currentPosts = [], loadMore = '') => {
         if('data' in response && 'statuses' in response.data) {
 
             let currentPostsSet = new Set(currentPosts.map(post => post.tweetId));
+            loadMoreText = !(response.data.statuses.length) ||
+                (response.data.statuses.length === 1 && tweets.filter(tweet => tweet.tweetId === response.data.statuses[0].id).length)  ? 
+                'End of Tweets' : 
+                'Load More';
 
-            for(const [i, tweet] of response.data.statuses.entries()) {
+            for(const tweet of response.data.statuses) {
 
                 if(currentPostsSet.has(tweet.id)) continue;
 
@@ -43,5 +43,5 @@ export const fetchPosts = async (term, currentPosts = [], loadMore = '') => {
         }
     }
     
-    return { type: POSTS, payload: tweets };
-}
+    return { type: POSTS, payload: { posts: tweets, loadMoreText: loadMoreText }};
+};

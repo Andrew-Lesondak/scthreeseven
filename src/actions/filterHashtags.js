@@ -1,6 +1,4 @@
-import axios from 'axios';
 import { FILTERED_HASH_TAGS, CLEAR_FILTERED } from '../constants';
-import { parseURL, parseUsername, parseHashtag, getHashtags, removeHashtags, getUrls, stripText } from '../utils';
 
 export const filterHashtags = (tag, currentFilteredTags) => {
 
@@ -22,7 +20,6 @@ export const filterHashtags = (tag, currentFilteredTags) => {
         return { type: FILTERED_HASH_TAGS, payload: filteredTags };   
 
     } else {
-        
         return { type: CLEAR_FILTERED, payload: filteredTags };   
     }
 }

@@ -3,27 +3,38 @@
 .tweet-content {
     & .tweet-list {
         @include tile;
+
+        & .user-image {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin: .3rem 0rem;
+        }
+
+        & .screen-name {
+            padding: .5rem 0rem;
+        }
     
         & .row {
             &:nth-child(even) {
                 background-color: #f0f0f0;
             }
         }
-    }
-    & .load-more {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem 0rem;
-        box-shadow: $shadow;
 
-        & .load-more-text {
-            color: $link;
-            cursor: pointer;
-        }
-
-        &:nth-child(odd) {
-            background-color: #f0f0f0;
+        & .load-more {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 0rem;
+    
+            & .load-more-text {
+                color: $link;
+                cursor: pointer;
+            }
+    
+            &:nth-child(odd) {
+                background-color: #f0f0f0;
+            }
         }
     }
 }

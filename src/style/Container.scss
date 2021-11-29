@@ -4,19 +4,87 @@
 .container {
     width: 70%;
 
+    & .title { 
+        grid-area: title; 
+        grid-column: 1 / 2;
+        grid-row: 1 / 1;
+    }
+
+    & .search { 
+        grid-area: searchbar;
+        height: fit-content;
+        grid-column: 1 / 1;
+        grid-row: 2 / 2;
+    }
+
+    & .tweet-content { 
+        grid-area: tweets; 
+        grid-column: 1 / 1;
+        grid-row: 3 / 3;
+    }
+
+    & .hashtags-container { 
+        grid-area: hashtags; 
+        height: fit-content; 
+        grid-column: 2 / 2;
+        grid-row: 2 / 5;
+    }
+    
+    & .main-content {
+        display: grid;
+        grid-gap: .5rem;
+        grid-template-columns: 2fr 1fr;
+    }
+
     & .row {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: flex-start;
         
         & .col {
-            padding: .5rem 0rem .5rem .5rem;
+            padding: .5rem;
             
             &.col-1 {
                 width: 65%;
             }
             &.col-2 {
                 width: 35%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $medium) {
+    .container {
+        width: 100%;
+
+        & .main-content {
+            grid-template-columns: unset;
+            justify-items: center;
+        
+            & .search { 
+                grid-column: 1 / 2;
+                grid-row: 2 / 2;
+            }
+
+            & .hashtags-container { 
+                grid-column: 1 / 2;
+                grid-row: 3 / 3;
+            }
+        
+            & .tweet-content { 
+                grid-column: 1 / 2;
+                grid-row: 4 / 4;
+            }    
+
+            & .title,
+            & .search {
+                width: 95%;
+            }
+
+            & .tweet-content,
+            & .hashtags-container {
+                width: 100%;
             }
         }
     }

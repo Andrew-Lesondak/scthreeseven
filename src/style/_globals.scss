@@ -6,6 +6,9 @@ $link: #2b3aad;
 
 $shadow: 0 .125rem .25rem rgba(0,0,0,.15);
 
+$small: 450px;
+$medium: 900px;
+
 @mixin tile {
     box-shadow: $shadow;
     background-color: #fff;
@@ -35,8 +38,8 @@ $shadow: 0 .125rem .25rem rgba(0,0,0,.15);
             cursor: pointer;
 
             &.filtered-tag {
-                background-color: green;
-                color: red;
+                background-color: #1da1f2;
+                color: #fff;
             }
         }
     }

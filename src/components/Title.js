@@ -2,12 +2,10 @@ import '../style/Title.scss';
 
 function Title() {
   return (
-    <div>
-      <header className="title">
-        Tweet Feed
-      </header>
+    <div className="title">
+      Tweet Feed
     </div>
   );
-}
+};
 
 export default Title;

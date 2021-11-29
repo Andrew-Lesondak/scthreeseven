@@ -5,7 +5,7 @@ import debouncedTermReducer from './debouncedTermReducer';
 import filteredHashtagsReducer from './filteredHashtagsReducer';
 
 export default combineReducers({
-    posts: postsReducer,
+    tweetData: postsReducer,
     term: termReducer,
     debouncedTerm: debouncedTermReducer,
     filteredHashTags: filteredHashtagsReducer
